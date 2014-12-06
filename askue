@@ -1,0 +1,372 @@
+#!/usr/bin/rrdcgi
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Refresh" content="300">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<title>Энергопотребление в снт "Твой дом"</title>
+<style>
+body {
+    background-color: #ffe7be;
+}
+</style>
+</head>
+<body>
+<h2 align=center>Энергопотребление в снт "Твой дом"</h2>
+<p>
+<center> <RRD::GRAPH ../html/askue/img/power-b2-<RRD::CV scale>.gif  
+  --start -<RRD::CV start> -l 0
+  --imginfo '<IMG SRC=/askue/img/%s WIDTH=%lu HEIGHT=%lu >'
+  --width 600 --height 200 --title "КТП2 - Полная потребляемая мощность" 
+  --vertical-label "Ватт" 
+  --color CANVAS#000000
+  --color GRID#FFFFFF
+  --color MGRID#FFFFFF
+  DEF:mps=/var/lib/rrd/askue/m230-b2.rrd:mps:AVERAGE
+  DEF:mp1=/var/lib/rrd/askue/m230-b2.rrd:mp1:AVERAGE
+  DEF:mp2=/var/lib/rrd/askue/m230-b2.rrd:mp2:AVERAGE
+  DEF:mp3=/var/lib/rrd/askue/m230-b2.rrd:mp3:AVERAGE
+  DEF:se1ai=/var/lib/rrd/askue/m230-b2.rrd:se1ai:AVERAGE
+  DEF:se2ai=/var/lib/rrd/askue/m230-b2.rrd:se2ai:AVERAGE
+  CDEF:se1=se1ai,3600000,*
+  CDEF:se2=se2ai,3600000,*
+  CDEF:mp1c=mp1,30,*
+  CDEF:mp2c=mp2,30,*
+  CDEF:mp3c=mp3,30,*
+  CDEF:mpsc=mps,30,*
+  AREA:mp1c#FFFF00:"фаза A"
+  STACK:mp2c#00FF00:"фаза B"
+  STACK:mp3c#FF0000:"фаза C"
+>
+ <RRD::GRAPH ../html/askue/img/power-o2-<RRD::CV scale>.gif  
+  --start -<RRD::CV start> -l 0
+  --imginfo '<IMG SRC=/askue/img/%s WIDTH=%lu HEIGHT=%lu >'
+  --width 600 --height 200 --title "КТП2 - Уличное освещение" 
+  --vertical-label "Ватт" 
+  --color CANVAS#000000
+  --color GRID#FFFFFF
+  --color MGRID#FFFFFF
+  DEF:mps=/var/lib/rrd/askue/m230-o2.rrd:mps:AVERAGE
+  DEF:mp1=/var/lib/rrd/askue/m230-o2.rrd:mp1:AVERAGE
+  DEF:mp2=/var/lib/rrd/askue/m230-o2.rrd:mp2:AVERAGE
+  DEF:mp3=/var/lib/rrd/askue/m230-o2.rrd:mp3:AVERAGE
+  DEF:v1=/var/lib/rrd/askue/m230-o2.rrd:mv1:AVERAGE
+  DEF:v2=/var/lib/rrd/askue/m230-o2.rrd:mv2:AVERAGE
+  DEF:v3=/var/lib/rrd/askue/m230-o2.rrd:mv3:AVERAGE
+  DEF:se1ai=/var/lib/rrd/askue/m230-o2.rrd:se1ai:AVERAGE
+  DEF:se2ai=/var/lib/rrd/askue/m230-o2.rrd:se2ai:AVERAGE
+  CDEF:se1=se1ai,3600000,*
+  CDEF:se2=se2ai,3600000,*
+  CDEF:mp1c=mp1,1,2,v1,220,-,220,/,*,-,*
+  CDEF:mp2c=mp2,1,2,v2,220,-,220,/,*,-,*
+  CDEF:mp3c=mp3,1,2,v3,220,-,220,/,*,-,*
+  CDEF:mpc=mp1,1,2,v1,220,-,220,/,*,-,*,mp2,1,2,v2,220,-,220,/,*,-,*,+,mp3,1,2,v3,220,-,220,/,*,-,*,+
+  AREA:mp1#FFFF00:"фаза A"
+  STACK:mp2#00FF00:"фаза B"
+  STACK:mp3#FF0000:"фаза C"
+>
+ <RRD::GRAPH ../html/askue/img/volt-b2-<RRD::CV scale>.gif  
+  --start -<RRD::CV start> -l 0
+  --imginfo '<IMG SRC=/askue/img/%s WIDTH=%lu HEIGHT=%lu >'
+  --width 600 --height 200 --title "КТП2 - напряжения 220V" 
+  --vertical-label "Вольт" 
+  -l 150 -u 250 -r
+  --color CANVAS#000000
+  --color GRID#FFFFFF
+  --color MGRID#FFFFFF
+  DEF:v1=/var/lib/rrd/askue/m230-b2.rrd:mv1:AVERAGE
+  DEF:v2=/var/lib/rrd/askue/m230-b2.rrd:mv2:AVERAGE
+  DEF:v3=/var/lib/rrd/askue/m230-b2.rrd:mv3:AVERAGE
+  CDEF:mv1=v1,220,-
+  CDEF:mv2=v2,220,-
+  CDEF:mv3=v3,220,-
+  LINE1:v1#FFFF00:"VA"
+  LINE1:v2#00FF00:"VB"
+  LINE1:v3#FF0000:"VC"
+ > 
+<hr>      <RRD::GRAPH ../html/askue/img/power-b3-<RRD::CV scale>.gif  
+  --start -<RRD::CV start> -l 0
+  --imginfo '<IMG SRC=/askue/img/%s WIDTH=%lu HEIGHT=%lu >'
+  --width 600 --height 200 --title "КТП3 - Полная потребляемая мощность" 
+  --vertical-label "Ватт" 
+  --color CANVAS#000000
+  --color GRID#FFFFFF
+  --color MGRID#FFFFFF
+  DEF:mps=/var/lib/rrd/askue/m230-b3.rrd:mps:AVERAGE
+  DEF:mp1=/var/lib/rrd/askue/m230-b3.rrd:mp1:AVERAGE
+  DEF:mp2=/var/lib/rrd/askue/m230-b3.rrd:mp2:AVERAGE
+  DEF:mp3=/var/lib/rrd/askue/m230-b3.rrd:mp3:AVERAGE
+  DEF:se1ai=/var/lib/rrd/askue/m230-b3.rrd:se1ai:AVERAGE
+  DEF:se2ai=/var/lib/rrd/askue/m230-b3.rrd:se2ai:AVERAGE
+  CDEF:se1=se1ai,3600000,*
+  CDEF:se2=se2ai,3600000,*
+  CDEF:mp1c=mp1,30,*
+  CDEF:mp2c=mp2,30,*
+  CDEF:mp3c=mp3,30,*
+  CDEF:mpsc=mps,30,*
+  AREA:mp1c#FFFF00:"фаза A"
+  STACK:mp2c#00FF00:"фаза B"
+  STACK:mp3c#FF0000:"фаза C"
+>
+ <RRD::GRAPH ../html/askue/img/power-o3-<RRD::CV scale>.gif  
+  --start -<RRD::CV start> -l 0
+  --imginfo '<IMG SRC=/askue/img/%s WIDTH=%lu HEIGHT=%lu >'
+  --width 600 --height 200 --title "КТП3 - Уличное освещение" 
+  --vertical-label "Ватт" 
+  --color CANVAS#000000
+  --color GRID#FFFFFF
+  --color MGRID#FFFFFF
+  DEF:mps=/var/lib/rrd/askue/m230-o3.rrd:mps:AVERAGE
+  DEF:mp1=/var/lib/rrd/askue/m230-o3.rrd:mp1:AVERAGE
+  DEF:mp2=/var/lib/rrd/askue/m230-o3.rrd:mp2:AVERAGE
+  DEF:mp3=/var/lib/rrd/askue/m230-o3.rrd:mp3:AVERAGE
+  DEF:v1=/var/lib/rrd/askue/m230-o3.rrd:mv1:AVERAGE
+  DEF:v2=/var/lib/rrd/askue/m230-o3.rrd:mv2:AVERAGE
+  DEF:v3=/var/lib/rrd/askue/m230-o3.rrd:mv3:AVERAGE
+  DEF:se1ai=/var/lib/rrd/askue/m230-o3.rrd:se1ai:AVERAGE
+  DEF:se2ai=/var/lib/rrd/askue/m230-o3.rrd:se2ai:AVERAGE
+  CDEF:se1=se1ai,3600000,*
+  CDEF:se2=se2ai,3600000,*
+  CDEF:mp1c=mp1,1,2,v1,220,-,220,/,*,-,*
+  CDEF:mp2c=mp2,1,2,v2,220,-,220,/,*,-,*
+  CDEF:mp3c=mp3,1,2,v3,220,-,220,/,*,-,*
+  CDEF:mpc=mp1,1,2,v1,220,-,220,/,*,-,*,mp2,1,2,v2,220,-,220,/,*,-,*,+,mp3,1,2,v3,220,-,220,/,*,-,*,+
+  AREA:mp1#FFFF00:"фаза A"
+  STACK:mp2#00FF00:"фаза B"
+  STACK:mp3#FF0000:"фаза C"
+>
+ <RRD::GRAPH ../html/askue/img/volt-b3-<RRD::CV scale>.gif  
+  --start -<RRD::CV start> -l 0
+  --imginfo '<IMG SRC=/askue/img/%s WIDTH=%lu HEIGHT=%lu >'
+  --width 600 --height 200 --title "КТП3 - напряжения 220V" 
+  --vertical-label "Вольт" 
+  -l 150 -u 250 -r
+  --color CANVAS#000000
+  --color GRID#FFFFFF
+  --color MGRID#FFFFFF
+  DEF:v1=/var/lib/rrd/askue/m230-b3.rrd:mv1:AVERAGE
+  DEF:v2=/var/lib/rrd/askue/m230-b3.rrd:mv2:AVERAGE
+  DEF:v3=/var/lib/rrd/askue/m230-b3.rrd:mv3:AVERAGE
+  CDEF:mv1=v1,220,-
+  CDEF:mv2=v2,220,-
+  CDEF:mv3=v3,220,-
+  LINE1:v1#FFFF00:"VA"
+  LINE1:v2#00FF00:"VB"
+  LINE1:v3#FF0000:"VC"
+ > 
+<hr>      <RRD::GRAPH ../html/askue/img/power-b4-<RRD::CV scale>.gif  
+  --start -<RRD::CV start> -l 0
+  --imginfo '<IMG SRC=/askue/img/%s WIDTH=%lu HEIGHT=%lu >'
+  --width 600 --height 200 --title "КТП4 - Полная потребляемая мощность" 
+  --vertical-label "Ватт" 
+  --color CANVAS#000000
+  --color GRID#FFFFFF
+  --color MGRID#FFFFFF
+  DEF:mps=/var/lib/rrd/askue/m230-b4.rrd:mps:AVERAGE
+  DEF:mp1=/var/lib/rrd/askue/m230-b4.rrd:mp1:AVERAGE
+  DEF:mp2=/var/lib/rrd/askue/m230-b4.rrd:mp2:AVERAGE
+  DEF:mp3=/var/lib/rrd/askue/m230-b4.rrd:mp3:AVERAGE
+  DEF:se1ai=/var/lib/rrd/askue/m230-b4.rrd:se1ai:AVERAGE
+  DEF:se2ai=/var/lib/rrd/askue/m230-b4.rrd:se2ai:AVERAGE
+  CDEF:se1=se1ai,3600000,*
+  CDEF:se2=se2ai,3600000,*
+  CDEF:mp1c=mp1,30,*
+  CDEF:mp2c=mp2,30,*
+  CDEF:mp3c=mp3,30,*
+  CDEF:mpsc=mps,30,*
+  AREA:mp1c#FFFF00:"фаза A"
+  STACK:mp2c#00FF00:"фаза B"
+  STACK:mp3c#FF0000:"фаза C"
+>
+ <RRD::GRAPH ../html/askue/img/power-o4-<RRD::CV scale>.gif  
+  --start -<RRD::CV start> -l 0
+  --imginfo '<IMG SRC=/askue/img/%s WIDTH=%lu HEIGHT=%lu >'
+  --width 600 --height 200 --title "КТП4 - Уличное освещение" 
+  --vertical-label "Ватт" 
+  --color CANVAS#000000
+  --color GRID#FFFFFF
+  --color MGRID#FFFFFF
+  DEF:mps=/var/lib/rrd/askue/m230-o4.rrd:mps:AVERAGE
+  DEF:mp1=/var/lib/rrd/askue/m230-o4.rrd:mp1:AVERAGE
+  DEF:mp2=/var/lib/rrd/askue/m230-o4.rrd:mp2:AVERAGE
+  DEF:mp3=/var/lib/rrd/askue/m230-o4.rrd:mp3:AVERAGE
+  DEF:v1=/var/lib/rrd/askue/m230-o4.rrd:mv1:AVERAGE
+  DEF:v2=/var/lib/rrd/askue/m230-o4.rrd:mv2:AVERAGE
+  DEF:v3=/var/lib/rrd/askue/m230-o4.rrd:mv3:AVERAGE
+  DEF:se1ai=/var/lib/rrd/askue/m230-o4.rrd:se1ai:AVERAGE
+  DEF:se2ai=/var/lib/rrd/askue/m230-o4.rrd:se2ai:AVERAGE
+  CDEF:se1=se1ai,3600000,*
+  CDEF:se2=se2ai,3600000,*
+  CDEF:mp1c=mp1,1,2,v1,220,-,220,/,*,-,*
+  CDEF:mp2c=mp2,1,2,v2,220,-,220,/,*,-,*
+  CDEF:mp3c=mp3,1,2,v3,220,-,220,/,*,-,*
+  CDEF:mpc=mp1,1,2,v1,220,-,220,/,*,-,*,mp2,1,2,v2,220,-,220,/,*,-,*,+,mp3,1,2,v3,220,-,220,/,*,-,*,+
+  AREA:mp1#FFFF00:"фаза A"
+  STACK:mp2#00FF00:"фаза B"
+  STACK:mp3#FF0000:"фаза C"
+>
+ <RRD::GRAPH ../html/askue/img/volt-b4-<RRD::CV scale>.gif  
+  --start -<RRD::CV start> -l 0
+  --imginfo '<IMG SRC=/askue/img/%s WIDTH=%lu HEIGHT=%lu >'
+  --width 600 --height 200 --title "КТП4 - напряжения 220V" 
+  --vertical-label "Вольт" 
+  -l 150 -u 250 -r
+  --color CANVAS#000000
+  --color GRID#FFFFFF
+  --color MGRID#FFFFFF
+  DEF:v1=/var/lib/rrd/askue/m230-b4.rrd:mv1:AVERAGE
+  DEF:v2=/var/lib/rrd/askue/m230-b4.rrd:mv2:AVERAGE
+  DEF:v3=/var/lib/rrd/askue/m230-b4.rrd:mv3:AVERAGE
+  CDEF:mv1=v1,220,-
+  CDEF:mv2=v2,220,-
+  CDEF:mv3=v3,220,-
+  LINE1:v1#FFFF00:"VA"
+  LINE1:v2#00FF00:"VB"
+  LINE1:v3#FF0000:"VC"
+ > 
+<hr>      <RRD::GRAPH ../html/askue/img/power-b5-<RRD::CV scale>.gif  
+  --start -<RRD::CV start> -l 0
+  --imginfo '<IMG SRC=/askue/img/%s WIDTH=%lu HEIGHT=%lu >'
+  --width 600 --height 200 --title "КТП5 - Полная потребляемая мощность" 
+  --vertical-label "Ватт" 
+  --color CANVAS#000000
+  --color GRID#FFFFFF
+  --color MGRID#FFFFFF
+  DEF:mps=/var/lib/rrd/askue/m230-b5.rrd:mps:AVERAGE
+  DEF:mp1=/var/lib/rrd/askue/m230-b5.rrd:mp1:AVERAGE
+  DEF:mp2=/var/lib/rrd/askue/m230-b5.rrd:mp2:AVERAGE
+  DEF:mp3=/var/lib/rrd/askue/m230-b5.rrd:mp3:AVERAGE
+  DEF:se1ai=/var/lib/rrd/askue/m230-b5.rrd:se1ai:AVERAGE
+  DEF:se2ai=/var/lib/rrd/askue/m230-b5.rrd:se2ai:AVERAGE
+  CDEF:se1=se1ai,3600000,*
+  CDEF:se2=se2ai,3600000,*
+  CDEF:mp1c=mp1,30,*
+  CDEF:mp2c=mp2,30,*
+  CDEF:mp3c=mp3,30,*
+  CDEF:mpsc=mps,30,*
+  AREA:mp1c#FFFF00:"фаза A"
+  STACK:mp2c#00FF00:"фаза B"
+  STACK:mp3c#FF0000:"фаза C"
+>
+ <RRD::GRAPH ../html/askue/img/power-o5-<RRD::CV scale>.gif  
+  --start -<RRD::CV start> -l 0
+  --imginfo '<IMG SRC=/askue/img/%s WIDTH=%lu HEIGHT=%lu >'
+  --width 600 --height 200 --title "КТП5 - Уличное освещение" 
+  --vertical-label "Ватт" 
+  --color CANVAS#000000
+  --color GRID#FFFFFF
+  --color MGRID#FFFFFF
+  DEF:mps=/var/lib/rrd/askue/m230-o5.rrd:mps:AVERAGE
+  DEF:mp1=/var/lib/rrd/askue/m230-o5.rrd:mp1:AVERAGE
+  DEF:mp2=/var/lib/rrd/askue/m230-o5.rrd:mp2:AVERAGE
+  DEF:mp3=/var/lib/rrd/askue/m230-o5.rrd:mp3:AVERAGE
+  DEF:v1=/var/lib/rrd/askue/m230-o5.rrd:mv1:AVERAGE
+  DEF:v2=/var/lib/rrd/askue/m230-o5.rrd:mv2:AVERAGE
+  DEF:v3=/var/lib/rrd/askue/m230-o5.rrd:mv3:AVERAGE
+  DEF:se1ai=/var/lib/rrd/askue/m230-o5.rrd:se1ai:AVERAGE
+  DEF:se2ai=/var/lib/rrd/askue/m230-o5.rrd:se2ai:AVERAGE
+  CDEF:se1=se1ai,3600000,*
+  CDEF:se2=se2ai,3600000,*
+  CDEF:mp1c=mp1,1,2,v1,220,-,220,/,*,-,*
+  CDEF:mp2c=mp2,1,2,v2,220,-,220,/,*,-,*
+  CDEF:mp3c=mp3,1,2,v3,220,-,220,/,*,-,*
+  CDEF:mpc=mp1,1,2,v1,220,-,220,/,*,-,*,mp2,1,2,v2,220,-,220,/,*,-,*,+,mp3,1,2,v3,220,-,220,/,*,-,*,+
+  AREA:mp1#FFFF00:"фаза A"
+  STACK:mp2#00FF00:"фаза B"
+  STACK:mp3#FF0000:"фаза C"
+>
+ <RRD::GRAPH ../html/askue/img/volt-b5-<RRD::CV scale>.gif  
+  --start -<RRD::CV start> -l 0
+  --imginfo '<IMG SRC=/askue/img/%s WIDTH=%lu HEIGHT=%lu >'
+  --width 600 --height 200 --title "КТП5 - напряжения 220V" 
+  --vertical-label "Вольт" 
+  -l 150 -u 250 -r
+  --color CANVAS#000000
+  --color GRID#FFFFFF
+  --color MGRID#FFFFFF
+  DEF:v1=/var/lib/rrd/askue/m230-b5.rrd:mv1:AVERAGE
+  DEF:v2=/var/lib/rrd/askue/m230-b5.rrd:mv2:AVERAGE
+  DEF:v3=/var/lib/rrd/askue/m230-b5.rrd:mv3:AVERAGE
+  CDEF:mv1=v1,220,-
+  CDEF:mv2=v2,220,-
+  CDEF:mv3=v3,220,-
+  LINE1:v1#FFFF00:"VA"
+  LINE1:v2#00FF00:"VB"
+  LINE1:v3#FF0000:"VC"
+ > 
+<hr>      <RRD::GRAPH ../html/askue/img/power-b8-<RRD::CV scale>.gif  
+  --start -<RRD::CV start> -l 0
+  --imginfo '<IMG SRC=/askue/img/%s WIDTH=%lu HEIGHT=%lu >'
+  --width 600 --height 200 --title "КТП8 - Полная потребляемая мощность" 
+  --vertical-label "Ватт" 
+  --color CANVAS#000000
+  --color GRID#FFFFFF
+  --color MGRID#FFFFFF
+  DEF:mps=/var/lib/rrd/askue/m230-b8.rrd:mps:AVERAGE
+  DEF:mp1=/var/lib/rrd/askue/m230-b8.rrd:mp1:AVERAGE
+  DEF:mp2=/var/lib/rrd/askue/m230-b8.rrd:mp2:AVERAGE
+  DEF:mp3=/var/lib/rrd/askue/m230-b8.rrd:mp3:AVERAGE
+  DEF:se1ai=/var/lib/rrd/askue/m230-b8.rrd:se1ai:AVERAGE
+  DEF:se2ai=/var/lib/rrd/askue/m230-b8.rrd:se2ai:AVERAGE
+  CDEF:se1=se1ai,3600000,*
+  CDEF:se2=se2ai,3600000,*
+  CDEF:mp1c=mp1,30,*
+  CDEF:mp2c=mp2,30,*
+  CDEF:mp3c=mp3,30,*
+  CDEF:mpsc=mps,30,*
+  AREA:mp1c#FFFF00:"фаза A"
+  STACK:mp2c#00FF00:"фаза B"
+  STACK:mp3c#FF0000:"фаза C"
+>
+ <RRD::GRAPH ../html/askue/img/power-o8-<RRD::CV scale>.gif  
+  --start -<RRD::CV start> -l 0
+  --imginfo '<IMG SRC=/askue/img/%s WIDTH=%lu HEIGHT=%lu >'
+  --width 600 --height 200 --title "КТП8 - Уличное освещение" 
+  --vertical-label "Ватт" 
+  --color CANVAS#000000
+  --color GRID#FFFFFF
+  --color MGRID#FFFFFF
+  DEF:mps=/var/lib/rrd/askue/m230-o8.rrd:mps:AVERAGE
+  DEF:mp1=/var/lib/rrd/askue/m230-o8.rrd:mp1:AVERAGE
+  DEF:mp2=/var/lib/rrd/askue/m230-o8.rrd:mp2:AVERAGE
+  DEF:mp3=/var/lib/rrd/askue/m230-o8.rrd:mp3:AVERAGE
+  DEF:v1=/var/lib/rrd/askue/m230-o8.rrd:mv1:AVERAGE
+  DEF:v2=/var/lib/rrd/askue/m230-o8.rrd:mv2:AVERAGE
+  DEF:v3=/var/lib/rrd/askue/m230-o8.rrd:mv3:AVERAGE
+  DEF:se1ai=/var/lib/rrd/askue/m230-o8.rrd:se1ai:AVERAGE
+  DEF:se2ai=/var/lib/rrd/askue/m230-o8.rrd:se2ai:AVERAGE
+  CDEF:se1=se1ai,3600000,*
+  CDEF:se2=se2ai,3600000,*
+  CDEF:mp1c=mp1,1,2,v1,220,-,220,/,*,-,*
+  CDEF:mp2c=mp2,1,2,v2,220,-,220,/,*,-,*
+  CDEF:mp3c=mp3,1,2,v3,220,-,220,/,*,-,*
+  CDEF:mpc=mp1,1,2,v1,220,-,220,/,*,-,*,mp2,1,2,v2,220,-,220,/,*,-,*,+,mp3,1,2,v3,220,-,220,/,*,-,*,+
+  AREA:mp1#FFFF00:"фаза A"
+  STACK:mp2#00FF00:"фаза B"
+  STACK:mp3#FF0000:"фаза C"
+>
+ <RRD::GRAPH ../html/askue/img/volt-b8-<RRD::CV scale>.gif  
+  --start -<RRD::CV start> -l 0
+  --imginfo '<IMG SRC=/askue/img/%s WIDTH=%lu HEIGHT=%lu >'
+  --width 600 --height 200 --title "КТП8 - напряжения 220V" 
+  --vertical-label "Вольт" 
+  -l 150 -u 250 -r
+  --color CANVAS#000000
+  --color GRID#FFFFFF
+  --color MGRID#FFFFFF
+  DEF:v1=/var/lib/rrd/askue/m230-b8.rrd:mv1:AVERAGE
+  DEF:v2=/var/lib/rrd/askue/m230-b8.rrd:mv2:AVERAGE
+  DEF:v3=/var/lib/rrd/askue/m230-b8.rrd:mv3:AVERAGE
+  CDEF:mv1=v1,220,-
+  CDEF:mv2=v2,220,-
+  CDEF:mv3=v3,220,-
+  LINE1:v1#FFFF00:"VA"
+  LINE1:v2#00FF00:"VB"
+  LINE1:v3#FF0000:"VC"
+ > 
+<hr>      </center>
+  </p>
+ </body>
+ </html>        
